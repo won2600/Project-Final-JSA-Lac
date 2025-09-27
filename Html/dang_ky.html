@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dang ky</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand span {
+            color: #212529;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #0d6efd;
+        }
+
+        /* Form container */
+        form {
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 60px auto;
+            background: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Title */
+        form h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: #0d6efd;
+        }
+
+        /* Label */
+        label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        /* Input focus */
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, .25);
+        }
+
+        /* Button */
+        button[type="submit"] {
+            width: 100%;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Checkbox */
+        .form-check-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-warning px-4">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="../img/hamburger.png" Logo style="height: 50px;">
+                <span class="ms-2 fw-bold fs-4">Food Shop</span>
+            </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link text-dark" href="../index.html">Trang Chủ</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/menu.html">Menu</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/gio_hang.html">Giỏ Hàng</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./dang_nhap.html">Đăng Nhập</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/dang_ky.html">Đăng Ký</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/thont_tin_them.html">Thông Tin Thêm</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <div class="container"></div>
+    <form action="#" id="register-form">
+        <h1>📝 Đăng ký</h1>
+        <div class="mb-3">
+            <label for="username" class="form-label">Tên</label>
+            <input type="text" class="form-control" id="register-name">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email </label>
+            <input type="email" class="form-control" id="register-email" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mật Khẩu</label>
+            <input type="password" class="form-control" id="register-password">
+        </div>
+        <div class="mb-3">
+            <label for="cf-password" class="form-label">Xác minh mật khẩu</label>
+            <input type="password" class="form-control" id="register-cf-password">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember-me">
+            <label class="form-check-label" for="remember-me">Tôi đồng ý với điều khoản của bạn</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+    </form>
+    </div>
+    <script src="../Js/register.js"></script>
+</body>
+
+
+</html>
