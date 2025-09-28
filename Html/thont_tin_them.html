@@ -55,6 +55,16 @@
                             <p><strong>📧 Email:</strong> <span id="detail-email">...</span></p>
                             <p><strong>🔑 Mật khẩu:</strong> <span id="detail-password">******</span></p>
                         </div>
+                        <!-- Nạp tiền vào tài khoản -->
+                        <div class="mt-4">
+                            <h5 class="mb-3 text-center">Nạp tiền vào tài khoản</h5>
+                            <div class="input-group mb-2">
+                                <input type="number" id="deposit-amount" class="form-control"
+                                    placeholder="Nhập số tiền muốn nạp">
+                                <button class="btn btn-success" id="deposit-btn">Nạp tiền</button>
+                            </div>
+                            <div id="balance-info" class="mt-2 text-success text-center"></div>
+                        </div>
 
                         <!-- Nút -->
                         <div class="mt-4 d-flex justify-content-center gap-3">
@@ -66,8 +76,32 @@
         </div>
     </main>
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Hiển thị số dư hiện tại
+            const user = JSON.parse(localStorage.getItem("loggedInUser")) || {};
+            const balanceInfo = document.getElementById("balance-info");
+            if (user.balance === undefined) user.balance = 0;
+            balanceInfo.textContent = `Số dư: ${user.balance.toLocaleString()} VNĐ`;
+
+            // Xử lý nạp tiền
+            document.getElementById("deposit-btn").onclick = function () {
+                const amount = parseInt(document.getElementById("deposit-amount").value);
+                if (isNaN(amount) || amount <= 0) {
+                    alert("Vui lòng nhập số tiền hợp lệ.");
+                    return;
+                }
+                user.balance = (user.balance || 0) + amount;
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
+                balanceInfo.textContent = `Số dư: ${user.balance.toLocaleString()} VNĐ`;
+                alert(`Nạp thành công ${amount.toLocaleString()} VNĐ!`);
+                document.getElementById("deposit-amount").value = "";
+            };
+        });
+    </script>
+    <script>
         document.addEventListener("DOMContentLoaded", checkLoginStatus);
     </script>
     <script src="../Js/infomation.js"></script>
 </body>
+
 </html>

@@ -29,40 +29,68 @@
             </ul>
         </div>
     </nav>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Giỏ Hàng</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Tên Món</th>
-                    <th>Giá</th>
-                    <th>Số Lượng</th>
-                    <th>Thành Tiền</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Cơm Tấm</td>
-                    <td>50.000 VNĐ</td>
-                    <td>1</td>
-                    <td>50.000 VNĐ</td>
-                </tr>
-                <tr>
-                    <td>Phở</td>
-                    <td>40.000 VNĐ</td>
-                    <td>2</td>
-                    <td>80.000 VNĐ</td>
-                </tr>
-            </tbody>
-        </table>
+    <main class="container py-5">
+        <h2 class="text-center mb-4 fw-bold text-primary">🛒 Giỏ hàng của bạn</h2>
+        <ul id="cart-list" class="list-group"></ul>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartList = document.getElementById("cart-list");
+            let total = 0;
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li class="list-group-item text-center">Giỏ hàng trống.</li>';
+            } else {
+                cartList.innerHTML = '';
+                cart.forEach((item, idx) => {
+                    total += item.price;
+                    cartList.innerHTML += `
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <img src="${item.img}" alt="${item.name}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; margin-right:15px;">
+                        <div>
+                            <div class="fw-bold">${item.name}</div>
+                            <div class="text-muted">Giá: ${item.price.toLocaleString()} VNĐ</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm" onclick="removeFromCart(${idx})">Xóa</button>
+                </li>
+            `;
+                });
+                // Hiển thị tổng tiền
+                cartList.innerHTML += `
+            <li class="list-group-item text-end fw-bold">Tổng tiền: ${total.toLocaleString()} VNĐ</li>
+        `;
+            }
 
-        <div class="text-end">
-            <h4>Tổng Tiền: 130.000 VNĐ</h4>
-        </div>
+            // Xử lý thanh toán
+            document.getElementById("pay-btn").onclick = function () {
+                const user = JSON.parse(localStorage.getItem("loggedInUser")) || {};
+                if ((user.balance || 0) < total) {
+                    alert("Bạn không đủ tiền để thanh toán!");
+                    return;
+                }
+                user.balance -= total;
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
+                localStorage.setItem("cart", JSON.stringify([])); // Xóa giỏ hàng
+                alert(`Thanh toán thành công! Số dư còn lại: ${user.balance.toLocaleString()} VNĐ`);
+                location.reload();
+            };
+        });
 
-        <div class="text-center mt-4">
-            <button class="btn btn-success">Thanh Toán</button>
-        </div>
+        // Remove item from cart
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            location.reload();
+        }
+    </script>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-success" id="pay-btn">Thanh Toán</button>
+
+    </div>
 </body>
 
 </html>
