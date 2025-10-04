@@ -1,5 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    /*Skibidi Navbar */
+    nav.navbar {
+        background: linear-gradient(90deg, #ffcc00, #ff9900);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 15px 15px;
+    }
+
+    .navbar-brand span {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-nav .nav-link {
+        font-weight: 500;
+        margin: 0 8px;
+        padding: 8px 15px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        color: #fff !important;
+    }
+
+    .navbar-nav .nav-link:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .navbar-nav .nav-link.active {
+        background: rgba(255, 255, 255, 0.3);
+        font-weight: 600;
+    }
+</style>
 
 <head>
     <meta charset="UTF-8">
@@ -20,50 +53,64 @@
                 <span class="ms-2 fw-bold fs-4">Food Shop</span>
             </a>
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link text-dark" href="../index.html">Trang Chủ</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./menu.html">Menu</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="#">Giỏ Hàng</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./dang_nhap.html">Đăng Nhập</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./dang_ky.html">Đăng Ký</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./thont_tin_them.html">Thông Tin Thêm</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="../index.html">🏠Trang Chủ</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./menu.html">🦀Menu</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">🛒Giỏ Hàng</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./dang_nhap.html">🔐Đăng Nhập</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./dang_ky.html">📝Đăng Ký</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./thont_tin_them.html">👤Thông Tin Thêm</a>
+                </li>
             </ul>
         </div>
     </nav>
     <main class="container py-5">
-        <h2 class="text-center mb-4 fw-bold text-primary">🛒 Giỏ hàng của bạn</h2>
-        <ul id="cart-list" class="list-group"></ul>
+        <h2 class="text-center mb-5 fw-bold text-primary">🛒 Giỏ hàng của bạn</h2>
+        <ul id="cart-list" class="list-group shadow rounded-4 overflow-hidden"></ul>
     </main>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-lg btn-success px-5 rounded-pill shadow" id="pay-btn">Thanh Toán</button>
+    </div>
+
+    <footer class="bg-light text-center py-3 mt-5 small">
+        Mã số doanh nghiệp: 2462012 - Cấp ngày 10/02/20015 - © Công ty TNHH Skibidi
+    </footer>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const cart = JSON.parse(localStorage.getItem("cart")) || [];
             const cartList = document.getElementById("cart-list");
             let total = 0;
+
             if (cart.length === 0) {
-                cartList.innerHTML = '<li class="list-group-item text-center">Giỏ hàng trống.</li>';
+                cartList.innerHTML = '<li class="list-group-item text-center py-4">🛍 Giỏ hàng trống.</li>';
             } else {
                 cartList.innerHTML = '';
                 cart.forEach((item, idx) => {
                     total += item.price;
                     cartList.innerHTML += `
-                <li class="list-group-item d-flex align-items-center justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <img src="${item.img}" alt="${item.name}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; margin-right:15px;">
-                        <div>
-                            <div class="fw-bold">${item.name}</div>
-                            <div class="text-muted">Giá: ${item.price.toLocaleString()} VNĐ</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger btn-sm" onclick="removeFromCart(${idx})">Xóa</button>
-                </li>
-            `;
-                });
-                // Hiển thị tổng tiền
-                cartList.innerHTML += `
-            <li class="list-group-item text-end fw-bold">Tổng tiền: ${total.toLocaleString()} VNĐ</li>
+          <li class="list-group-item d-flex align-items-center justify-content-between cart-item">
+            <div class="d-flex align-items-center">
+              <img src="${item.img}" alt="${item.name}" 
+                style="width:70px; height:70px; object-fit:cover; border-radius:12px; margin-right:15px; box-shadow:0 3px 6px rgba(0,0,0,0.2);">
+              <div>
+                <div class="fw-bold fs-5">${item.name}</div>
+                <div class="text-muted">Giá: ${item.price.toLocaleString()} VNĐ</div>
+              </div>
+            </div>
+            <button class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="removeFromCart(${idx})">❌ Xóa</button>
+          </li>
         `;
+                });
+
+                cartList.innerHTML += `
+        <li class="list-group-item text-end fw-bold bg-light fs-5">
+          Tổng tiền: <span class="text-danger">${total.toLocaleString()} VNĐ</span>
+        </li>
+      `;
             }
 
-            // Xử lý thanh toán
+            // Thanh toán
             document.getElementById("pay-btn").onclick = function () {
                 const user = JSON.parse(localStorage.getItem("loggedInUser")) || {};
                 if ((user.balance || 0) < total) {
@@ -72,13 +119,13 @@
                 }
                 user.balance -= total;
                 localStorage.setItem("loggedInUser", JSON.stringify(user));
-                localStorage.setItem("cart", JSON.stringify([])); // Xóa giỏ hàng
-                alert(`Thanh toán thành công! Số dư còn lại: ${user.balance.toLocaleString()} VNĐ`);
+                localStorage.setItem("cart", JSON.stringify([]));
+                alert(`✅ Thanh toán thành công! Số dư còn lại: ${user.balance.toLocaleString()} VNĐ`);
                 location.reload();
             };
         });
 
-        // Remove item from cart
+        // Xóa item
         function removeFromCart(index) {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             cart.splice(index, 1);
@@ -87,10 +134,22 @@
         }
     </script>
 
-    <div class="text-center mt-4">
-        <button class="btn btn-success" id="pay-btn">Thanh Toán</button>
+    <style>
+        /* Làm giỏ hàng đẹp hơn */
+        #cart-list .cart-item {
+            transition: all 0.3s ease;
+        }
 
-    </div>
-</body>
+        #cart-list .cart-item:hover {
+            transform: scale(1.02);
+            background: #fdfdfd;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 128, 0, 0.3);
+        }
+    </style>
 
 </html>

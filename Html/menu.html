@@ -13,42 +13,99 @@
             height: 200px;
             object-fit: cover;
         }
+
+        /*Skibidi Navbar */
+        nav.navbar {
+            background: linear-gradient(90deg, #ffcc00, #ff9900);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .navbar-brand span {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+        }
     </style>
 </head>
 
 <body>
-    <<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
         </script>
-        <nav class="navbar navbar-expand-lg bg-warning px-4">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="../img/hamburger.png" alt="Logo" style="height: 50px;">
-                    <span class="ms-2 fw-bold fs-4">Food Shop</span>
-                </a>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-dark" href="../index.html">Trang Chủ</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="./gio_hang.html">Giỏ Hàng</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="./dang_nhap.html">Đăng Nhập</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="./dang_ky.html">Đăng Ký</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="./thont_tin_them.html">Thông Tin Thêm</a>
-                    </li>
-                </ul>
+    <nav class="navbar navbar-expand-lg bg-warning px-4">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="../img/hamburger.png" alt="Logo" style="height: 50px;">
+                <span class="ms-2 fw-bold fs-4">Food Shop</span>
+            </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link text-dark" href="../index.html">🏠Trang Chủ</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#">🦀Menu</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./gio_hang.html">🛒Giỏ Hàng</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./dang_nhap.html">🔐Đăng Nhập</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./dang_ky.html">📝Đăng Ký</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./thont_tin_them.html">👤Thông Tin Thêm</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container mt-5">
+        <h2 class="text-center mb-4 fw-bold text-primary">🍽 Menu</h2>
+
+        <!-- Thanh tìm kiếm -->
+        <div class="mb-5 text-center">
+            <div class="input-group w-50 mx-auto shadow-sm rounded-pill overflow-hidden">
+                <input type="text" id="food-search" placeholder="🔍 Tìm món ăn..." class="form-control border-0" />
+                <button class="btn btn-success px-4" onclick="searchFood()">Tìm</button>
             </div>
-        </nav>
-        <section class="container mt-5">
-            <h2 class="text-center mb-4">Menu</h2>
-            <div class="mb-4 text-center">
-                <input type="text" id="food-search" placeholder="Tìm món ăn..."
-                    class="form-control d-inline-block w-50" />
-                <button class="btn btn-success ms-2" onclick="searchFood()">Tìm kiếm</button>
-            </div>
-            <div class="row" id="food-list">
-                <!-- Food items will be rendered here -->
-            </div>
-        </section>
-        <script src="../Js/menu.js"></script>
+        </div>
+
+        <!-- Danh sách món ăn -->
+        <div class="row g-4" id="food-list">
+            <!-- Food items render ở đây -->
+        </div>
+    </section>
+
+    <footer class="bg-light text-center py-3 mt-5 small">
+        Mã số doanh nghiệp: 2462012 - Cấp ngày 10/02/20015 - © Công ty TNHH Skibidi
+    </footer>
+
+    <script src="../Js/menu.js"></script>
+
+    <style>
+        #food-search {
+            padding: 12px 15px;
+            font-size: 1rem;
+        }
+        #food-search:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
+        button.btn:hover {
+            background-color: #28a745;
+        }
+
+    </style>
 
 </body>
 

@@ -41,9 +41,42 @@
             height: 200px;
             object-fit: cover;
         }
+
         section {
             margin-top: 50px;
-            
+
+        }
+
+        /*Skibidi Navbar */
+        nav.navbar {
+            background: linear-gradient(90deg, #ffcc00, #ff9900);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .navbar-brand span {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
         }
     </style>
 </head>
@@ -53,19 +86,19 @@
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg bg-warning px-4  ">
+    <nav class="navbar navbar-expand-lg bg-warning px-4">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="./img/hamburger.png" Logo style="height: 50px;">
+                <img src="../img/hamburger.png" Logo style="height: 50px;">
                 <span class="ms-2 fw-bold fs-4">Food Shop</span>
             </a>
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link text-dark" href="#">Trang Chủ</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./Html/menu.html">Menu</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./Html/gio_hang.html">Giỏ Hàng</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./Html/dang_nhap.html">Đăng Nhập</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./Html/dang_ky.html">Đăng Ký</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="./Html/thont_tin_them.html">Thông Tin Thêm</a>
+                <li class="nav-item"><a class="nav-link text-dark" href="../index.html">🏠Trang Chủ</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/menu.html">🦀Menu</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/gio_hang.html">🛒Giỏ Hàng</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./Html/dang_nhap.html">🔐Đăng Nhập</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./dang_ky.html">📝Đăng Ký</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./thont_tin_them.html">👤Thông Tin Thêm</a>
                 </li>
             </ul>
         </div>
@@ -74,16 +107,18 @@
     <section class="hero">
         <div class="overlay"></div>
         <div class="hero-content text-center">
-            <div class="bg-white text-dark p-3 rounded mb-2">
-                <h1>Chào mừng đến với Food Shop</h1>
+            <div class="bg-white text-dark p-4 rounded-4 shadow-lg mb-3">
+                <h1 class="fw-bold">🍴 Chào mừng đến với Food Shop</h1>
             </div>
-            <div class="bg-white text-dark p-2 rounded mb-3">
-                <p>Chúng tôi cung cấp các món ăn ngon nhất cho bạn!</p>
+            <div class="bg-white text-dark p-3 rounded-4 shadow-sm mb-4">
+                <p class="mb-0">Chúng tôi cung cấp <b>các món ăn ngon nhất</b> cho bạn!</p>
             </div>
-            <a class="btn btn-primary" href="./Html/menu.html" role="button">Đặt Hàng Ngay!!</a>
-
+            <a class="btn btn-lg btn-warning fw-bold shadow" href="./Html/menu.html" role="button">
+                🚀 Đặt Hàng Ngay!!
+            </a>
         </div>
     </section>
+
     <section class="container mt-5">
         <h1>Những món ăn được yêu thích nhất:</h1>
         <div class="cotainer">
@@ -112,6 +147,7 @@
                 </div>
             </div>
     </section>
+
 
     <footer class="bg-light text-center py-3 mt-5 small">
         Mã số doanh nghiệp: 2462012 - Cấp ngày 10/02/20015 - © Công ty TNHH Skibidi
