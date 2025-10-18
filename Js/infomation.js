@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!user) {
     alert("Vui lòng đăng nhập để xem thông tin cá nhân.");
-    window.location.href = "./dang_nhap.html";
+    window.location.href = ".dang_nhap.html";
     return;
   }
 

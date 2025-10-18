@@ -55,7 +55,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link text-dark" href="../index.html">🏠Trang Chủ</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="./menu.html">🦀Menu</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="#">🛒Giỏ Hàng</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="./gio_hang.html">🛒Giỏ Hàng</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="./dang_nhap.html">🔐Đăng Nhập</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="./dang_ky.html">📝Đăng Ký</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="./thont_tin_them.html">👤Thông Tin Thêm</a>
@@ -73,22 +73,30 @@
     </div>
 
     <footer class="bg-light text-center py-3 mt-5 small">
-        Mã số doanh nghiệp: 2462012 - Cấp ngày 10/02/20015 - © Công ty TNHH Skibidi
+        Mã số doanh nghiệp: 2462012 - Cấp ngày 10/02/2025 - © Công ty TNHH Skibidi
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const cartList = document.getElementById("cart-list");
-            let total = 0;
+// Khi DOM đã sẵn sàng, thực thi hàm hiển thị giỏ hàng và xử lý thanh toán
+document.addEventListener("DOMContentLoaded", function () {
+    // Lấy giỏ hàng từ localStorage (nếu chưa có thì dùng mảng rỗng)
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    // Thẻ ul nơi sẽ render các item
+    const cartList = document.getElementById("cart-list");
+    // Biến tổng tiền
+    let total = 0;
 
-            if (cart.length === 0) {
-                cartList.innerHTML = '<li class="list-group-item text-center py-4">🛍 Giỏ hàng trống.</li>';
-            } else {
-                cartList.innerHTML = '';
-                cart.forEach((item, idx) => {
-                    total += item.price;
-                    cartList.innerHTML += `
+    // Nếu giỏ rỗng, hiển thị thông báo
+    if (cart.length === 0) {
+        cartList.innerHTML = '<li class="list-group-item text-center py-4">🛍 Giỏ hàng trống.</li>';
+    } else {
+        // Nếu có sản phẩm, làm rỗng container rồi render từng item
+        cartList.innerHTML = '';
+        cart.forEach((item, idx) => {
+            // Cộng dồn giá vào tổng
+            total += item.price;
+            // Thêm một <li> chứa ảnh, tên, giá và nút xóa (onclick gọi removeFromCart)
+            cartList.innerHTML += `
           <li class="list-group-item d-flex align-items-center justify-content-between cart-item">
             <div class="d-flex align-items-center">
               <img src="${item.img}" alt="${item.name}" 
@@ -101,37 +109,46 @@
             <button class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="removeFromCart(${idx})">❌ Xóa</button>
           </li>
         `;
-                });
+        });
 
-                cartList.innerHTML += `
+        // Sau khi render tất cả item, thêm một <li> hiển thị tổng tiền
+        cartList.innerHTML += `
         <li class="list-group-item text-end fw-bold bg-light fs-5">
           Tổng tiền: <span class="text-danger">${total.toLocaleString()} VNĐ</span>
         </li>
       `;
-            }
+    }
 
-            // Thanh toán
-            document.getElementById("pay-btn").onclick = function () {
-                const user = JSON.parse(localStorage.getItem("loggedInUser")) || {};
-                if ((user.balance || 0) < total) {
-                    alert("Bạn không đủ tiền để thanh toán!");
-                    return;
-                }
-                user.balance -= total;
-                localStorage.setItem("loggedInUser", JSON.stringify(user));
-                localStorage.setItem("cart", JSON.stringify([]));
-                alert(`✅ Thanh toán thành công! Số dư còn lại: ${user.balance.toLocaleString()} VNĐ`);
-                location.reload();
-            };
-        });
-
-        // Xóa item
-        function removeFromCart(index) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            location.reload();
+    // Xử lý khi người dùng bấm nút "Thanh Toán"
+    document.getElementById("pay-btn").onclick = function () {
+        // Lấy user đã đăng nhập từ localStorage (nếu chưa đăng nhập thì {} mặc định)
+        const user = JSON.parse(localStorage.getItem("loggedInUser")) || {};
+        // Nếu số dư không đủ để thanh toán, báo lỗi và dừng
+        if ((user.balance || 0) < total) {
+            alert("Bạn không đủ tiền để thanh toán!");
+            return;
         }
+        // Trừ tổng tiền vào số dư user
+        user.balance -= total;
+        // Lưu lại thông tin user sau khi trừ tiền
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+        // Xóa giỏ hàng (đã thanh toán)
+        localStorage.setItem("cart", JSON.stringify([]));
+        // Thông báo thành công kèm số dư còn lại
+        alert(`✅ Thanh toán thành công! Số dư còn lại: ${user.balance.toLocaleString()} VNĐ`);
+        // Tải lại trang để cập nhật giao diện (giỏ rỗng, số dư mới)
+        location.reload();
+    };
+});
+
+// Hàm xóa item khỏi giỏ theo chỉ số (index)
+// - Đọc cart từ localStorage, splice để loại item, lưu lại và reload trang
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
     </script>
 
     <style>
